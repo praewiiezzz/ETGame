@@ -2,6 +2,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class ETGame extends BasicGame {
@@ -25,6 +26,7 @@ public class ETGame extends BasicGame {
 		for (Block block : blocks) {
 			block.render();
 		}
+		player.render();
 	}
 
 	@Override
@@ -46,12 +48,34 @@ public class ETGame extends BasicGame {
 			blocks[i] = new Block(MapX, MapY);
 			MapX += NextBlock;
 		}
+		player = new PlayerController(250,450);
 	}
 
 	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
-		// TODO Auto-generated method stub
+	public void update(GameContainer container, int delta) throws SlickException {
+		Input input = container.getInput();
+		try {
+			updatePlayerMovement(input, delta);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
+	void updatePlayerMovement(Input input,int delta) throws InterruptedException {
+		if(input.isKeyDown(Input.KEY_LEFT)){
+			player.moveLeft();
+		}
+		if(input.isKeyDown(Input.KEY_RIGHT)){
+			player.moveRight();
+		}
+		if(input.isKeyDown(Input.KEY_UP)){
+			player.moveUP();
+		}
+		if(input.isKeyDown(Input.KEY_DOWN)){
+			player.moveDown();
+		}
+		player.Border();
 	}
 
 	public static void main(String[] arg) {
@@ -59,7 +83,7 @@ public class ETGame extends BasicGame {
 			ETGame game = new ETGame("E.T. Puzzle");
 			AppGameContainer appgc = new AppGameContainer(game);
 			appgc.setDisplayMode(550, 600, false);
-			appgc.setTargetFrameRate(60); // FramRate 100 คือ update 100 ครั้งใน
+			appgc.setTargetFrameRate(30); // FramRate 100 คือ update 100 ครั้งใน
 											// 1 วิ
 			appgc.start();
 		} catch (SlickException e) {
