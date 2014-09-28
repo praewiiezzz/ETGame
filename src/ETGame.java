@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 
 public class ETGame extends BasicGame {
 
-	private Map map;
 	private PlayerController player;
 	private Block block;
 	private Block[] blocks;
@@ -23,7 +22,6 @@ public class ETGame extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
-		// map.draw();
 		for (Block block : blocks) {
 			block.render();
 		}
@@ -32,7 +30,6 @@ public class ETGame extends BasicGame {
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
-		// map = new Map(100, 150);
 		CreateMap();
 
 	}
