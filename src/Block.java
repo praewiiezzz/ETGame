@@ -16,6 +16,7 @@ public class Block {
 		BrokenGlass = new Image("res/Brokenglass2.jpg");
 		this.x = x;
 		this.y = y;
+		
 	}
 	public void render() {
 		// TODO Auto-generated method stub\
@@ -24,7 +25,7 @@ public class Block {
 	}
 	public void update() {
 		x += nextBlock;
-		y += nextBlock;
+		//y += nextBlock;
 	}
 
 

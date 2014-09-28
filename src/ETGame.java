@@ -9,6 +9,11 @@ public class ETGame extends BasicGame {
 	private Map map;
 	private PlayerController player;
 	private Block block;
+	private Block[] blocks;
+	private int setMapX = 100;
+	private int setMapY = 150;
+	private int MapWidth = 400;
+	private int NextBlock = 50;
 
 	public ETGame(String title) {
 		super(title);
@@ -18,16 +23,32 @@ public class ETGame extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
-	//	map.draw();
-		block.render();
+		// map.draw();
+		for (Block block : blocks) {
+			block.render();
+		}
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
-		//map = new Map(100, 150);
-		block = new Block(100,150);
-		
+		// map = new Map(100, 150);
+		CreateMap();
+
+	}
+
+	private void CreateMap() throws SlickException {
+		int MapX = setMapX;
+		int MapY = setMapY;
+		blocks = new Block[49];
+		for (int i = 0; i < 49; i++) {
+			if (MapX > MapWidth) {
+				MapX = setMapX;
+				MapY += NextBlock;
+			}
+			blocks[i] = new Block(MapX, MapY);
+			MapX += NextBlock;
+		}
 	}
 
 	@Override
@@ -41,7 +62,8 @@ public class ETGame extends BasicGame {
 			ETGame game = new ETGame("E.T. Puzzle");
 			AppGameContainer appgc = new AppGameContainer(game);
 			appgc.setDisplayMode(550, 600, false);
-			appgc.setTargetFrameRate(60); // FramRate 100 คือ update 100 ครั้งใน 1 วิ
+			appgc.setTargetFrameRate(60); // FramRate 100 คือ update 100 ครั้งใน
+											// 1 วิ
 			appgc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
