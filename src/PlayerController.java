@@ -6,6 +6,7 @@ public class PlayerController {
 	private int y;
 	private Image Alien;
 	
+	
 	public PlayerController(int x, int y) throws SlickException {
 		// TODO Auto-generated constructor stub
 		this.x = x;
@@ -18,39 +19,39 @@ public class PlayerController {
 	}
 	public void moveLeft() throws InterruptedException {
 		// TODO Auto-generated method stub
-		x -= 50;
+		x -= ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void moveRight() throws InterruptedException {
 		// TODO Auto-generated method stub
-		x += 50;
+		x += ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void moveUP() throws InterruptedException {
 		// TODO Auto-generated method stub
-		y -= 50;
+		y -= ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void moveDown() throws InterruptedException {
 		// TODO Auto-generated method stub
-		y += 50;
+		y += ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void Border() {
 		// TODO Auto-generated method stub
-		if (x > 400) {
-			x = 400;
-		} else if (x <= 100) {
-			x = 100; // ขนาดความกว้างจอ 640 ไม่ต้องการให้ตกขอบ
+		if (x > ETGame.MapWidth) {
+			x = ETGame.MapWidth;
+		} else if (x <= ETGame.setMapX) {
+			x = ETGame.setMapX; // ขนาดความกว้างจอ 640 ไม่ต้องการให้ตกขอบ
 		}
-		if (y > 450) {
-			y = 450;
-		} else if (y <= 150) {
-			y = 150; // ขนาดความกว้างจอ 480 ไม่ต้องการให้ตกขอบ
+		if (y > ETGame.MapHeight) {
+			y = ETGame.MapHeight;
+		} else if (y <= ETGame.setMapY) {
+			y = ETGame.setMapY; // ขนาดความกว้างจอ 480 ไม่ต้องการให้ตกขอบ
 		}
 	}
 }

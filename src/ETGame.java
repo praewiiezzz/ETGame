@@ -10,14 +10,17 @@ public class ETGame extends BasicGame {
 	private PlayerController player;
 	private Block block;
 	private Block[] blocks;
-	private int setMapX = 100;
-	private int setMapY = 150;
-	private int MapWidth = 400;
-	private int NextBlock = 50;
+	public static int MapWidth = 400;
+	public static int MapHeight = 450;
+	public static int NextBlock = 50;
+	public static int setMapX = 100;
+	public static int setMapY = 150;
 
 	public ETGame(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
+
+
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class ETGame extends BasicGame {
 			blocks[i] = new Block(MapX, MapY);
 			MapX += NextBlock;
 		}
-		player = new PlayerController(250,450);
+		player = new PlayerController(MapWidth-setMapX-NextBlock,MapHeight);
 	}
 
 	@Override
