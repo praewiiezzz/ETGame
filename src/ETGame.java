@@ -9,27 +9,33 @@ public class ETGame extends BasicGame {
 
 	private PlayerController player;
 	private Block block;
+	private BlockCantPass blockCantPass;
 	private Block[] blocks;
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
 	public static int NextBlock = 50;
 	public static int setMapX = 100;
 	public static int setMapY = 150;
+	public static int Path = 0;
 
 	public ETGame(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
-
 
 	}
 
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
+
 		for (Block block : blocks) {
 			block.render();
 		}
+		arg1.drawString("" + Path, 200, 0);
+		blockCantPass.render();
 		player.render();
+
+		
 	}
 
 	@Override
@@ -48,14 +54,17 @@ public class ETGame extends BasicGame {
 				MapX = setMapX;
 				MapY += NextBlock;
 			}
-			blocks[i] = new Block(MapX, MapY);
+			blocks[i] = new Block(MapX, MapY, true,i);
 			MapX += NextBlock;
 		}
-		player = new PlayerController(MapWidth-setMapX-NextBlock,MapHeight);
+		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
+		blockCantPass = new BlockCantPass(150,150);  // ค่าไม่ยอมเปลี่ยน แม้ว่าใน block จะถูกก็ตาม
+
 	}
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
+	public void update(GameContainer container, int delta)
+			throws SlickException {
 		Input input = container.getInput();
 		try {
 			updatePlayerMovement(input, delta);
@@ -63,21 +72,35 @@ public class ETGame extends BasicGame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		for (Block block : blocks) {
+			if (!block.isPass(player)) {
+			
+			}
+		}
+
 
 	}
-	void updatePlayerMovement(Input input,int delta) throws InterruptedException {
-		if(input.isKeyDown(Input.KEY_LEFT)){
+
+	void updatePlayerMovement(Input input, int delta)
+			throws InterruptedException {
+
+		if (input.isKeyDown(Input.KEY_LEFT)) {
 			player.moveLeft();
+			Path++;
 		}
-		if(input.isKeyDown(Input.KEY_RIGHT)){
+		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			player.moveRight();
+			Path++;
 		}
-		if(input.isKeyDown(Input.KEY_UP)){
+		if (input.isKeyDown(Input.KEY_UP)) {
 			player.moveUP();
+			Path++;
 		}
-		if(input.isKeyDown(Input.KEY_DOWN)){
+		if (input.isKeyDown(Input.KEY_DOWN)) {
 			player.moveDown();
+			Path++;
 		}
+
 		player.Border();
 	}
 

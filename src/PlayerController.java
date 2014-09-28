@@ -1,11 +1,13 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+
 public class PlayerController {
 	private int x;
 	private int y;
 	private Image Alien;
-	
+	private int SetCenterX = 4;
+	private int SetCenterY = 5;
 	
 	public PlayerController(int x, int y) throws SlickException {
 		// TODO Auto-generated constructor stub
@@ -15,12 +17,12 @@ public class PlayerController {
 	}
 	
 	public void render() {
-		Alien.draw(x+4,y+5);
+		Alien.draw(x+SetCenterX,y+SetCenterY);
 	}
 	public void moveLeft() throws InterruptedException {
 		// TODO Auto-generated method stub
 		x -= ETGame.NextBlock;
-		Thread.sleep(150);
+		Thread.sleep(150);// To prevent pass more 1 block
 	}
 
 	public void moveRight() throws InterruptedException {
@@ -53,5 +55,12 @@ public class PlayerController {
 		} else if (y <= ETGame.setMapY) {
 			y = ETGame.setMapY; // ขนาดความกว้างจอ 480 ไม่ต้องการให้ตกขอบ
 		}
+	}
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 }
