@@ -19,13 +19,22 @@ public class PlayerController {
 		Alien = new Image("res/alien2.png");
 	}
 	
-	public int getX() {
-		System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
+	public int getOldX() {
+	//	System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
 		return Old_x;
 	}
 
-	public int getY() {
+	public int getOldY() {
 		return Old_y;
+	}
+	
+	public int getX() {
+		//System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 	
 	public void render() {

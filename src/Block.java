@@ -8,6 +8,7 @@ public class Block {
 	private int y;
 	private int nextBlock = 50;
 	public boolean chkPass;
+	public boolean StepOnItAgain;
 	private int i = 0;
 
 	public Block(int x, int y, boolean chkPass,int i) throws SlickException {
@@ -17,6 +18,7 @@ public class Block {
 		this.y = y;
 		this.i = i;
 		this.chkPass = false;
+		this.StepOnItAgain = false;
 	}
 
 	public void render() {
@@ -31,12 +33,19 @@ public class Block {
 
 	
 	public boolean isPass(PlayerController P) throws SlickException {
-		if(x==(P.getX()) && y==(P.getY()))
+		if(x==(P.getOldX()) && y==(P.getOldY()))
 		{	
 		//	System.out.println("eiei"+i);
-			System.out.println("x"+x+" y"+y);
+			//System.out.println("x"+x+" y"+y);
 			chkPass = true;
 			//ETGame.Path++;
+		}
+		if (chkPass)
+		{
+			if(x==(P.getX()) && y==(P.getY()))
+			{
+				System.out.println("permission");
+			}
 		}
 		return false;
 	}
