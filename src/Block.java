@@ -31,9 +31,9 @@ public class Block {
 
 	
 	public boolean isPass(PlayerController P) throws SlickException {
-		if(x==(P.getX()) && y==P.getY())
+		if(x==(P.getX()) && y==(P.getY()))
 		{	
-			System.out.println("eiei"+i);
+		//	System.out.println("eiei"+i);
 			System.out.println("x"+x+" y"+y);
 			chkPass = true;
 			//ETGame.Path++;

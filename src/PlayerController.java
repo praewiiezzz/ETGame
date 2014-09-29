@@ -8,12 +8,24 @@ public class PlayerController {
 	private Image Alien;
 	private int SetCenterX = 4;
 	private int SetCenterY = 5;
+	private int Old_x = 0;
+	private int Old_y = 0; 
 	
 	public PlayerController(int x, int y) throws SlickException {
 		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
+
 		Alien = new Image("res/alien2.png");
+	}
+	
+	public int getX() {
+		System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
+		return Old_x;
+	}
+
+	public int getY() {
+		return Old_y;
 	}
 	
 	public void render() {
@@ -21,24 +33,32 @@ public class PlayerController {
 	}
 	public void moveLeft() throws InterruptedException {
 		// TODO Auto-generated method stub
+		Old_x = x;
+		Old_y = y;
 		x -= ETGame.NextBlock;
 		Thread.sleep(150);// To prevent pass more 1 block
 	}
 
 	public void moveRight() throws InterruptedException {
 		// TODO Auto-generated method stub
+		Old_x = x;
+		Old_y = y;
 		x += ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void moveUP() throws InterruptedException {
 		// TODO Auto-generated method stub
+		Old_x = x;
+		Old_y = y;
 		y -= ETGame.NextBlock;
 		Thread.sleep(150);
 	}
 
 	public void moveDown() throws InterruptedException {
 		// TODO Auto-generated method stub
+		Old_x = x;
+		Old_y = y;
 		y += ETGame.NextBlock;
 		Thread.sleep(150);
 	}
@@ -56,11 +76,5 @@ public class PlayerController {
 			y = ETGame.setMapY; // ขนาดความกว้างจอ 480 ไม่ต้องการให้ตกขอบ
 		}
 	}
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
+	
 }
