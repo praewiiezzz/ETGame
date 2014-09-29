@@ -9,7 +9,6 @@ public class ETGame extends BasicGame {
 
 	private PlayerController player;
 	private Block block;
-	private BlockCantPass blockCantPass;
 	private Block[] blocks;
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
@@ -32,7 +31,6 @@ public class ETGame extends BasicGame {
 			block.render();
 		}
 		arg1.drawString("" + Path, 200, 0);
-		blockCantPass.render();
 		player.render();
 
 		
@@ -58,7 +56,6 @@ public class ETGame extends BasicGame {
 			MapX += NextBlock;
 		}
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
-		blockCantPass = new BlockCantPass(150,150);  // ค่าไม่ยอมเปลี่ยน แม้ว่าใน block จะถูกก็ตาม
 
 	}
 
