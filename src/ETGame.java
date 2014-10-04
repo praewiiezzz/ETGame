@@ -10,11 +10,12 @@ public class ETGame extends BasicGame {
 	private PlayerController player;
 	private Block block;
 	private Block[] blocks;
+	private Background background;
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
 	public static int NextBlock = 50;
 	public static int setMapX = 100;
-	public static int setMapY = 150;
+	public static int setMapY = 100;
 	public static int Path = 0;
 
 	public ETGame(String title) {
@@ -26,7 +27,7 @@ public class ETGame extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
-
+		background.render();
 		for (Block block : blocks) {
 			block.render();
 		}
@@ -55,8 +56,9 @@ public class ETGame extends BasicGame {
 			blocks[i] = new Block(MapX, MapY, true,i);
 			MapX += NextBlock;
 		}
+		
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
-
+		background = new Background();
 	}
 
 	@Override
