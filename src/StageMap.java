@@ -6,6 +6,8 @@ public class StageMap {
 	private int x;
 	private int y;
 	private int i;
+	public static int NumberOfBlock = 0; // To count all of block that player
+											// can pass
 	private boolean ChkStepOnSpace = false;
 
 	public StageMap(int x, int y, int i) throws SlickException {
@@ -20,6 +22,7 @@ public class StageMap {
 		int j = 0;
 		int drawSpaceMap[] = new int[] { 0, 7, 11, 12, 16, 19, 23, 24, 26, 28,
 				30, 33, 37, 40 };
+		NumberOfBlock = ETGame.AllBlock - drawSpaceMap.length - 1;
 		while (j < drawSpaceMap.length) {
 			if (i == drawSpaceMap[j]) {
 				space = new Space(x, y, i);

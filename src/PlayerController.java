@@ -1,11 +1,11 @@
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-
 public class PlayerController {
 	private int x;
 	private int y;
 	private Image Alien;
+	private Equipment equipment;
 	private int SetCenterX = 4;
 	private int SetCenterY = 5;
 	private int Old_x = 0;
@@ -87,6 +87,13 @@ public class PlayerController {
 			y = ETGame.MapHeight;
 		} else if (y <= ETGame.setMapY) {
 			y = ETGame.setMapY; // ขนาดความกว้างจอ 480 ไม่ต้องการให้ตกขอบ
+		}
+	}
+	
+	public void isCollect() {
+		if(x==(equipment.EquipX) && y == (equipment.EquipY))
+		{
+			equipment.chkCollect = true;
 		}
 	}
 	

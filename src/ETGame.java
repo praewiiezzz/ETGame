@@ -7,21 +7,29 @@ import org.newdawn.slick.SlickException;
 
 public class ETGame extends BasicGame {
 
-	private PlayerController player;
 	private Block block;
 	private Block[] blocks;
 	private Background background;
+
+	private PlayerController player;
 	private StageMap stageMap;
 	private PlayAgainButton play_again;
-	//Set Map
+	private Equipment equipment;
+
+	// Set Map
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
 	public static int NextBlock = 50;
+	public static int AllBlock = 49;
 	public static int setMapX = 100;
 	public static int setMapY = 150;
 	public static int CountBlock = 0;
-	
+
+	// You win or GameOver
+	private GameOver gameover;
+	private Win win;
 	public static boolean isGameOver = false;
+	public static boolean IsWin = false;
 
 	public ETGame(String title) {
 		super(title);
@@ -37,12 +45,17 @@ public class ETGame extends BasicGame {
 			block.render();
 		}
 		arg1.drawString("" + CountBlock, 200, 0);
+		equipment.render();
 		player.render();
-		if (isGameOver)
-		{
+		if (isGameOver) {
+			gameover.render();
 			play_again.render();
 		}
-		
+		if (IsWin) {
+			win.render();
+			IsWin = false;
+		}
+
 	}
 
 	@Override
@@ -56,9 +69,9 @@ public class ETGame extends BasicGame {
 		int MapX = setMapX;
 		int MapY = setMapY;
 		int y = 0;
-		blocks = new Block[49];
+		blocks = new Block[AllBlock];
 		int stage = 1;
-		for (int i = 0; i < 49; i++) {
+		for (int i = 0; i < AllBlock; i++) {
 			if (MapX > MapWidth) {
 				MapX = setMapX;
 				MapY += NextBlock;
@@ -70,8 +83,10 @@ public class ETGame extends BasicGame {
 			}
 		}
 
+		equipment = new Equipment();
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
 		background = new Background();
+		gameover = new GameOver(false);
 		play_again = new PlayAgainButton(false);
 	}
 
@@ -91,11 +106,15 @@ public class ETGame extends BasicGame {
 				}
 			}
 		}
-		if (input.isKeyDown(Input.KEY_ENTER)) {
-			init(container);
-			CountBlock =0;
-			isGameOver = false;
+		else {
+			if (input.isKeyDown(Input.KEY_ENTER)) {
+				init(container);
+				CountBlock = 0;
+				isGameOver = false;
+			}
 		}
+		player.isCollect(); // To chk player collect equipment or not
+		win = new Win();
 
 	}
 
@@ -126,8 +145,7 @@ public class ETGame extends BasicGame {
 			ETGame game = new ETGame("E.T. Puzzle");
 			AppGameContainer appgc = new AppGameContainer(game);
 			appgc.setDisplayMode(550, 600, false);
-			appgc.setTargetFrameRate(30); // FramRate 100 คือ update 100 ครั้งใน
-											// 1 วิ
+			appgc.setTargetFrameRate(30);
 			appgc.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
