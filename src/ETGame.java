@@ -7,12 +7,9 @@ import org.newdawn.slick.SlickException;
 
 public class ETGame extends BasicGame {
 
-	private Block block;
+	private PlayerController player;
 	private Block[] blocks;
 	private Background background;
-
-	private PlayerController player;
-	private StageMap stageMap;
 	private PlayAgainButton play_again;
 	private Equipment equipment;
 
@@ -25,9 +22,9 @@ public class ETGame extends BasicGame {
 	public static int setMapY = 150;
 	public static int CountBlock = 0;
 
-	// You win or GameOver
-	private GameOver gameover;
+	// Set Win Game or Game over
 	private Win win;
+	private GameOver gameover;
 	public static boolean isGameOver = false;
 	public static boolean IsWin = false;
 
@@ -47,47 +44,49 @@ public class ETGame extends BasicGame {
 		arg1.drawString("" + CountBlock, 200, 0);
 		equipment.render();
 		player.render();
+		ChkWinOrGameover();
+
+	}
+
+	public void ChkWinOrGameover() {
 		if (isGameOver) {
 			gameover.render();
 			play_again.render();
 		}
 		if (IsWin) {
 			win.render();
-			IsWin = false;
 		}
-
 	}
 
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
 		CreateMap();
+		equipment = new Equipment();
+		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
+		background = new Background();
+		gameover = new GameOver(false);
+		play_again = new PlayAgainButton(false);
 
 	}
 
 	private void CreateMap() throws SlickException {
 		int MapX = setMapX;
 		int MapY = setMapY;
-		int y = 0;
 		blocks = new Block[AllBlock];
 		int stage = 1;
+
 		for (int i = 0; i < AllBlock; i++) {
 			if (MapX > MapWidth) {
 				MapX = setMapX;
 				MapY += NextBlock;
-				blocks[i] = new Block(MapX, MapY, true, i, 1);
+				blocks[i] = new Block(MapX, MapY, true, i, stage);
 				MapX += NextBlock;
 			} else {
-				blocks[i] = new Block(MapX, MapY, true, i, 1);
+				blocks[i] = new Block(MapX, MapY, true, i, stage);
 				MapX += NextBlock;
 			}
 		}
-
-		equipment = new Equipment();
-		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
-		background = new Background();
-		gameover = new GameOver(false);
-		play_again = new PlayAgainButton(false);
 	}
 
 	@Override
@@ -105,13 +104,10 @@ public class ETGame extends BasicGame {
 				if (!block.isPass(player)) {
 				}
 			}
-		}
-		else {
-			if (input.isKeyDown(Input.KEY_ENTER)) {
-				init(container);
-				CountBlock = 0;
-				isGameOver = false;
-			}
+		} else if (input.isKeyDown(Input.KEY_ENTER)) {
+			init(container);
+			CountBlock = 0;
+			isGameOver = false;
 		}
 		player.isCollect(); // To chk player collect equipment or not
 		win = new Win();

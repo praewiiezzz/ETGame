@@ -20,7 +20,6 @@ public class PlayerController {
 	}
 	
 	public int getOldX() {
-	//	System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
 		return Old_x;
 	}
 
@@ -29,7 +28,6 @@ public class PlayerController {
 	}
 	
 	public int getX() {
-		//System.out.println("Class Player Old x"+Old_x+"Old y"+Old_y);
 		return x;
 	}
 

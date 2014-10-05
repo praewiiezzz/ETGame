@@ -5,13 +5,11 @@ public class Block {
 	private int stage;
 	private int x;
 	private int y;
-	private int nextBlock = 50;
 	private int i = 0;
 
 	private Image floor;
 	private Image BrokenGlass;
 	private StageMap stageMap;
-	private PlayAgainButton play_again;
 
 	private boolean StepOnSpace = false;
 	public boolean chkPass;
