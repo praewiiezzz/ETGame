@@ -11,13 +11,17 @@ public class ETGame extends BasicGame {
 	private Block block;
 	private Block[] blocks;
 	private Background background;
-	private Stage_1 stage_1;
+	private StageMap stageMap;
+	private PlayAgainButton play_again;
+	//Set Map
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
 	public static int NextBlock = 50;
 	public static int setMapX = 100;
 	public static int setMapY = 150;
-	public static int Path = 0;
+	public static int CountBlock = 0;
+	
+	public static boolean isGameOver = false;
 
 	public ETGame(String title) {
 		super(title);
@@ -32,9 +36,12 @@ public class ETGame extends BasicGame {
 		for (Block block : blocks) {
 			block.render();
 		}
-		arg1.drawString("" + Path, 200, 0);
+		arg1.drawString("" + CountBlock, 200, 0);
 		player.render();
-
+		if (isGameOver)
+		{
+			play_again.render();
+		}
 		
 	}
 
@@ -55,56 +62,60 @@ public class ETGame extends BasicGame {
 			if (MapX > MapWidth) {
 				MapX = setMapX;
 				MapY += NextBlock;
-				blocks[i] = new Block(MapX, MapY, true,i,1);
+				blocks[i] = new Block(MapX, MapY, true, i, 1);
+				MapX += NextBlock;
+			} else {
+				blocks[i] = new Block(MapX, MapY, true, i, 1);
 				MapX += NextBlock;
 			}
-			else
-			{
-			blocks[i] = new Block(MapX, MapY, true,i,1);
-			MapX += NextBlock;
-			}
 		}
-		
+
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
 		background = new Background();
+		play_again = new PlayAgainButton(false);
 	}
 
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		Input input = container.getInput();
-		try {
-			updatePlayerMovement(input, delta);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (Block block : blocks) {
-			if (!block.isPass(player)) {
-			
+		if (!isGameOver) {
+			try {
+				updatePlayerMovement(input, delta);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			for (Block block : blocks) {
+				if (!block.isPass(player)) {
+				}
+			}
+		}
+		if (input.isKeyDown(Input.KEY_ENTER)) {
+			init(container);
+			CountBlock =0;
+			isGameOver = false;
 		}
 
 	}
 
 	void updatePlayerMovement(Input input, int delta)
 			throws InterruptedException {
-
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			player.moveLeft();
-			Path++;
+			CountBlock++;
 		}
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			player.moveRight();
-			Path++;
+			CountBlock++;
 		}
 		if (input.isKeyDown(Input.KEY_UP)) {
 			player.moveUP();
-			Path++;
+			CountBlock++;
 		}
 		if (input.isKeyDown(Input.KEY_DOWN)) {
 			player.moveDown();
-			Path++;
+			CountBlock++;
 		}
 
 		player.Border();

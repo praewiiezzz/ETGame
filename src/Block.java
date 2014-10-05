@@ -4,7 +4,7 @@ import org.newdawn.slick.SlickException;
 public class Block {
 	private Image floor;
 	private Image BrokenGlass;
-	private Stage_1 stage1;
+	private StageMap stageMap;
 	private int stage;
 	private int x;
 	private int y;
@@ -12,7 +12,8 @@ public class Block {
 	public boolean chkPass;
 	public boolean StepOnItAgain;
 	private int i = 0;
-	private boolean eiei = false;
+	private PlayAgainButton play_again;
+	private boolean StepOnSpace = false;
 
 	public Block(int x, int y, boolean chkPass,int i,int stage) throws SlickException {
 		BrokenGlass = new Image("res/Brokenglass2.jpg");
@@ -28,9 +29,10 @@ public class Block {
 	public void render() throws SlickException {
 		if(chkPass) BrokenGlass.draw(x, y);
 		else floor.draw(x, y);
-		if (stage==1) stage1 = new Stage_1(x, y, i);
+		if (stage==1)
 		{
-			eiei=true;
+			stageMap = new StageMap(x, y, i);
+			StepOnSpace=true;
 		}
 
 	}
@@ -51,11 +53,13 @@ public class Block {
 			if(x==(P.getX()) && y==(P.getY()))
 			{
 				System.out.println("permission");
+				ETGame.isGameOver = true;
+				
 			}
 		}
-		if (eiei)
+		if (StepOnSpace)
 		{
-			stage1.isPass(P);
+			stageMap.isPass(P);
 		}
 		return false;
 	}
