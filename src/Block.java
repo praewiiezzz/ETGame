@@ -4,14 +4,17 @@ import org.newdawn.slick.SlickException;
 public class Block {
 	private Image floor;
 	private Image BrokenGlass;
+	private Stage_1 stage1;
+	private int stage;
 	private int x;
 	private int y;
 	private int nextBlock = 50;
 	public boolean chkPass;
 	public boolean StepOnItAgain;
 	private int i = 0;
+	private boolean eiei = false;
 
-	public Block(int x, int y, boolean chkPass,int i) throws SlickException {
+	public Block(int x, int y, boolean chkPass,int i,int stage) throws SlickException {
 		BrokenGlass = new Image("res/Brokenglass2.jpg");
 		floor = new Image("res/floor.jpg");
 		this.x = x;
@@ -19,11 +22,17 @@ public class Block {
 		this.i = i;
 		this.chkPass = false;
 		this.StepOnItAgain = false;
+		this.stage = stage;
 	}
 
-	public void render() {
+	public void render() throws SlickException {
 		if(chkPass) BrokenGlass.draw(x, y);
 		else floor.draw(x, y);
+		if (stage==1) stage1 = new Stage_1(x, y, i);
+		{
+			eiei=true;
+		}
+
 	}
 
 	public boolean chkPass() {
@@ -35,10 +44,7 @@ public class Block {
 	public boolean isPass(PlayerController P) throws SlickException {
 		if(x==(P.getOldX()) && y==(P.getOldY()))
 		{	
-		//	System.out.println("eiei"+i);
-			//System.out.println("x"+x+" y"+y);
 			chkPass = true;
-			//ETGame.Path++;
 		}
 		if (chkPass)
 		{
@@ -46,6 +52,10 @@ public class Block {
 			{
 				System.out.println("permission");
 			}
+		}
+		if (eiei)
+		{
+			stage1.isPass(P);
 		}
 		return false;
 	}

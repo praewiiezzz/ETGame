@@ -11,11 +11,12 @@ public class ETGame extends BasicGame {
 	private Block block;
 	private Block[] blocks;
 	private Background background;
+	private Stage_1 stage_1;
 	public static int MapWidth = 400;
 	public static int MapHeight = 450;
 	public static int NextBlock = 50;
 	public static int setMapX = 100;
-	public static int setMapY = 100;
+	public static int setMapY = 150;
 	public static int Path = 0;
 
 	public ETGame(String title) {
@@ -47,14 +48,21 @@ public class ETGame extends BasicGame {
 	private void CreateMap() throws SlickException {
 		int MapX = setMapX;
 		int MapY = setMapY;
+		int y = 0;
 		blocks = new Block[49];
+		int stage = 1;
 		for (int i = 0; i < 49; i++) {
 			if (MapX > MapWidth) {
 				MapX = setMapX;
 				MapY += NextBlock;
+				blocks[i] = new Block(MapX, MapY, true,i,1);
+				MapX += NextBlock;
 			}
-			blocks[i] = new Block(MapX, MapY, true,i);
+			else
+			{
+			blocks[i] = new Block(MapX, MapY, true,i,1);
 			MapX += NextBlock;
+			}
 		}
 		
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
@@ -76,7 +84,6 @@ public class ETGame extends BasicGame {
 			
 			}
 		}
-
 
 	}
 

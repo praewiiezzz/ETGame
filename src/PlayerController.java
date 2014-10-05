@@ -15,7 +15,7 @@ public class PlayerController {
 		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
-
+		
 		Alien = new Image("res/alien2.png");
 	}
 	
@@ -45,6 +45,7 @@ public class PlayerController {
 		Old_x = x;
 		Old_y = y;
 		x -= ETGame.NextBlock;
+		System.out.println("x "+ x+" y"+y);
 		Thread.sleep(150);// To prevent pass more 1 block
 	}
 
@@ -53,6 +54,7 @@ public class PlayerController {
 		Old_x = x;
 		Old_y = y;
 		x += ETGame.NextBlock;
+		System.out.println("x "+ x+" y"+y);
 		Thread.sleep(150);
 	}
 
@@ -61,6 +63,7 @@ public class PlayerController {
 		Old_x = x;
 		Old_y = y;
 		y -= ETGame.NextBlock;
+		System.out.println("x "+ x+" y"+y);
 		Thread.sleep(150);
 	}
 
@@ -69,6 +72,7 @@ public class PlayerController {
 		Old_x = x;
 		Old_y = y;
 		y += ETGame.NextBlock;
+		System.out.println("x "+ x+" y"+y);
 		Thread.sleep(150);
 	}
 
