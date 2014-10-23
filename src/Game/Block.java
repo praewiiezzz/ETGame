@@ -18,8 +18,8 @@ public class Block {
 
 	public Block(int x, int y, boolean chkPass, int i, int stage)
 			throws SlickException {
-		BrokenGlass = new Image("res/Brokenglass2.jpg");
-		floor = new Image("res/floor.jpg");
+		BrokenGlass = new Image("res/Brokenglass3.png");
+		floor = new Image("res/floor1.png");
 		this.x = x;
 		this.y = y;
 		this.i = i; // Block[i]
@@ -29,12 +29,17 @@ public class Block {
 	}
 
 	public void render() throws SlickException {
-		if (chkPass) {
+		CreateSpaceOnMap();
+		if (stageMap.ChkSpace)
+		{
+			
+		}
+		else if (chkPass) {
 			BrokenGlass.draw(x, y);
 		} else {
 			floor.draw(x, y);
 		}
-		CreateSpaceOnMap();
+	
 
 	}
 

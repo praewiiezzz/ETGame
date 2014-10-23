@@ -3,13 +3,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class StageMap {
-	private Space space;
 	private int x;
 	private int y;
 	private int i;
 	public static int NumberOfBlock = 0; // To count all of block that player
 											// can pass
 	private boolean ChkStepOnSpace = false;
+	public boolean ChkSpace = false;
 
 	public StageMap(int x, int y, int i) throws SlickException {
 		this.x = x;
@@ -26,8 +26,8 @@ public class StageMap {
 		NumberOfBlock = ETGame.AllBlock - drawSpaceMap.length - 1;
 		while (j < drawSpaceMap.length) {
 			if (i == drawSpaceMap[j]) {
-				space = new Space(x, y, i);
 				ChkStepOnSpace = true;
+				ChkSpace = true;
 			}
 			j++;
 		}
