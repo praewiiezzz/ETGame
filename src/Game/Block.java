@@ -1,4 +1,5 @@
 package Game;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -29,11 +30,9 @@ public class Block {
 	}
 
 	public void render() throws SlickException {
-		CreateSpaceOnMap();
-		if (stageMap.ChkSpace)
-		{
-			
-		}
+		ToCreateSpaceOnMap();
+		if (stageMap.ChkSpace) // If this block is space the floor will not be created
+			;
 		else if (chkPass) {
 			BrokenGlass.draw(x, y);
 		} else {
@@ -43,11 +42,9 @@ public class Block {
 
 	}
 
-	public void CreateSpaceOnMap() throws SlickException {
-		if (stage == 1) {
-			stageMap = new StageMap(x, y, i);
-			StepOnSpace = true;
-		}
+	public void ToCreateSpaceOnMap() throws SlickException {
+		stageMap = new StageMap(x, y, i,stage);
+		StepOnSpace = true;
 	}
 
 	public boolean chkPass() {
@@ -68,6 +65,7 @@ public class Block {
 			if (x == (P.getX()) && y == (P.getY())) {
 				System.out.println("permission");
 				ETGame.isGameOver = true;
+
 
 			}
 		}

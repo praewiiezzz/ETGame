@@ -22,13 +22,14 @@ public class ETGame extends BasicGame {
 	public static int setMapX = 100;
 	public static int setMapY = 150;
 	public static int CountBlock = 0;
+	public static int stage = 1;
 
 	// Set Win Game or Game over
 	private Win win;
 	private GameOver gameover;
 	public static boolean isGameOver = false;
 	public static boolean IsWin = false;
-
+	public static boolean Winner = false;
 	public ETGame(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -75,8 +76,6 @@ public class ETGame extends BasicGame {
 		int MapX = setMapX;
 		int MapY = setMapY;
 		blocks = new Block[AllBlock];
-		int stage = 1;
-
 		for (int i = 0; i < AllBlock; i++) {
 			if (MapX > MapWidth) {
 				MapX = setMapX;
@@ -94,7 +93,7 @@ public class ETGame extends BasicGame {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		Input input = container.getInput();
-		if (!isGameOver) {
+		if (!isGameOver && !Winner) {
 			try {
 				updatePlayerMovement(input, delta);
 			} catch (InterruptedException e) {
@@ -105,14 +104,37 @@ public class ETGame extends BasicGame {
 				if (!block.isPass(player)) {
 				}
 			}
-		} else if (input.isKeyDown(Input.KEY_ENTER)) {
-			init(container);
-			CountBlock = 0;
-			isGameOver = false;
+		} else if ( Winner) {
+			
+			// press any key to continue
+			if (input.isKeyDown(Input.KEY_ENTER))
+			{
+				stage++;
+				SetGameInit(container);
+			}
 		}
+		PlayAgain_WhenGameOver(container, input);
 		player.isCollect(); // To chk player collect equipment or not
 		win = new Win();
 
+	}
+
+	public void SetGameInit(GameContainer container) throws SlickException {
+		init(container);
+		CountBlock = 0;
+		Winner = false;
+	}
+
+	public void PlayAgain_WhenGameOver(GameContainer container, Input input) 
+			throws SlickException {
+		if (isGameOver)
+		{
+			if (input.isKeyDown(Input.KEY_ENTER))
+			{
+				SetGameInit(container);
+				isGameOver = false;
+			}
+		}
 	}
 
 	void updatePlayerMovement(Input input, int delta)
