@@ -5,20 +5,31 @@ import org.newdawn.slick.SlickException;
 
 public class MainMenu {
 
-		private Image bg;
-	//	private int x = -200;
-		private int x = -30;
-		private int y = 0;
+	private Image bgMain;
+	private Image bgHowTo;
+	private int x = 0;
+	private int y = 0;
+	private HowToPlay howToPlay;
 
-		public MainMenu(boolean Start) throws SlickException {
-			bg = new Image("res/maingame.png");
-			ETGame.isStart = Start;
+	public MainMenu(boolean Start) throws SlickException{
+		bgMain = new Image("res/maingame.png");
+		bgHowTo = new Image("res/howtoplay.png");
+		ETGame.isStart = Start;
+	}
+
+	public void render() throws InterruptedException {
+		if (!ETGame.ChkMain)
+		{
+			bgMain.draw(x-30, y);
 			
 		}
+		else
+		{
+			Thread.sleep(5000);
+			bgHowTo.draw(x-200, y);
+		}
 
-		public void render() {
-			bg.draw(x, y);
-			
-			
+		
+
 	}
 }

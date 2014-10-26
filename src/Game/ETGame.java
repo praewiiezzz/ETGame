@@ -14,7 +14,11 @@ public class ETGame extends BasicGame {
 	private Background background;
 	private PlayAgainButton play_again;
 	private Equipment equipment;
+	
+	// Main Menu
 	private MainMenu mainMenu;
+	private HowToPlay howToPlay;
+	public static boolean isStart = true;
 
 	// Set Map
 	public static int MapWidth = 400;
@@ -29,10 +33,11 @@ public class ETGame extends BasicGame {
 	// Set Win Game or Game over
 	private Win win;
 	private GameOver gameover;
-	public static boolean isStart = true;
+	public static boolean ChkMain = false;
 	public static boolean isGameOver = false;
 	public static boolean IsWin = false;
 	public static boolean Winner = false;
+	
 
 	public ETGame(String title) {
 		super(title);
@@ -44,18 +49,33 @@ public class ETGame extends BasicGame {
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
 		if (isStart) {
-				mainMenu.render();
-		} else {
-			background.render();
-			for (Block block : blocks) {
-				block.render();
-			}
-			arg1.drawString("" + CountBlock, 200, 0);
-			equipment.render();
-			player.render();
+				MainMenu();
+		}
+		else {
+			GameStart(arg1);
 			ChkWinOrGameover();
 		}
 		
+	}
+
+	public void GameStart(Graphics arg1) throws SlickException {
+		background.render();
+		for (Block block : blocks) {
+			block.render();
+		}
+		arg1.drawString("" + CountBlock, 200, 0);
+		equipment.render();
+		player.render();
+	}
+
+	public void MainMenu() {
+		try {
+			mainMenu.render();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ChkMain = true;
 	}
 
 	public void ChkWinOrGameover() {

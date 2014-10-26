@@ -14,9 +14,9 @@ public class Win {
 
 	public void CheckWinOrLose() {
 		if (Equipment.chkCollect == true && (ETGame.CountBlock == StageMap.NumberOfBlock)) {
-			
 			System.out.println("Win!!");
 			ETGame.IsWin = true;
+			ETGame.Winner=true;
 		} 
 	}
 
