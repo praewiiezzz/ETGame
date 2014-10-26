@@ -19,7 +19,7 @@ public class Block {
 
 	public Block(int x, int y, boolean chkPass, int i, int stage)
 			throws SlickException {
-		BrokenGlass = new Image("res/Brokenglass3.png");
+		BrokenGlass = new Image("res/Brokenglass4.png");
 		floor = new Image("res/floor1.png");
 		this.x = x;
 		this.y = y;
