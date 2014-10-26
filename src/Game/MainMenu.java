@@ -11,25 +11,17 @@ public class MainMenu {
 	private int y = 0;
 	private HowToPlay howToPlay;
 
-	public MainMenu(boolean Start) throws SlickException{
-		bgMain = new Image("res/maingame.png");
+	public MainMenu(boolean Start) throws SlickException {
+		bgMain = new Image("res/maingame2.png");
 		bgHowTo = new Image("res/howtoplay.png");
 		ETGame.isStart = Start;
 	}
 
 	public void render() throws InterruptedException {
-		if (!ETGame.ChkMain)
-		{
-			bgMain.draw(x-30, y);
-			
+		if (!ETGame.ChkMain) {
+			bgMain.draw(x - 30, y);
+		} else {
+			bgHowTo.draw(x - 200, y);
 		}
-		else
-		{
-			Thread.sleep(5000);
-			bgHowTo.draw(x-200, y);
-		}
-
-		
-
 	}
 }

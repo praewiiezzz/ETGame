@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.concurrent.CountedCompleter;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -30,6 +32,7 @@ public class ETGame extends BasicGame {
 	public static int CountBlock = 0;
 	public static int stage = 1;
 
+
 	// Set Win Game or Game over
 	private Win win;
 	private GameOver gameover;
@@ -38,7 +41,11 @@ public class ETGame extends BasicGame {
 	public static boolean IsWin = false;
 	public static boolean Winner = false;
 	
-
+	//count Score
+	public Score score;
+	public static long tStart = 0;
+	public static long tFinish = 0;
+	
 	public ETGame(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -48,14 +55,14 @@ public class ETGame extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
+		
 		if (isStart) {
 				MainMenu();
 		}
 		else {
 			GameStart(arg1);
 			ChkWinOrGameover();
-		}
-		
+		}	
 	}
 
 	public void GameStart(Graphics arg1) throws SlickException {
@@ -75,10 +82,9 @@ public class ETGame extends BasicGame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ChkMain = true;
 	}
 
-	public void ChkWinOrGameover() {
+	public void ChkWinOrGameover() throws SlickException {
 		if (isGameOver) {
 			gameover.render();
 			play_again.render();
@@ -98,7 +104,6 @@ public class ETGame extends BasicGame {
 		background = new Background();
 		gameover = new GameOver(false);
 		play_again = new PlayAgainButton(false);
-
 	}
 
 	private void CreateMap() throws SlickException {
@@ -140,8 +145,8 @@ public class ETGame extends BasicGame {
 			if (input.isKeyDown(Input.KEY_ENTER)) {
 				if (stage < 5) {
 					stage++;
+					SetGameInit(container);
 				}
-				SetGameInit(container);
 			}
 		}
 		PlayAgain_WhenGameOver(container, input);
@@ -153,13 +158,17 @@ public class ETGame extends BasicGame {
 	public void ChkIsStart(GameContainer container, Input input)
 			throws SlickException {
 		if (isStart) {
-			if (input.isKeyDown(Input.KEY_ENTER)) {
+			if (input.isKeyDown(Input.KEY_SPACE)){
+				ChkMain = true;
+			}
+			else if (input.isKeyDown(Input.KEY_ENTER)) {
+				tStart = System.nanoTime();
 				SetGameInit(container);
 				isStart = false;
 			}
 		}
 	}
-
+	
 	public void SetGameInit(GameContainer container) throws SlickException {
 		init(container);
 		CountBlock = 0;
