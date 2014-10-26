@@ -1,4 +1,5 @@
 package Game;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -13,6 +14,7 @@ public class ETGame extends BasicGame {
 	private Background background;
 	private PlayAgainButton play_again;
 	private Equipment equipment;
+	private MainMenu mainMenu;
 
 	// Set Map
 	public static int MapWidth = 400;
@@ -27,9 +29,11 @@ public class ETGame extends BasicGame {
 	// Set Win Game or Game over
 	private Win win;
 	private GameOver gameover;
+	public static boolean isStart = true;
 	public static boolean isGameOver = false;
 	public static boolean IsWin = false;
 	public static boolean Winner = false;
+
 	public ETGame(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -39,15 +43,19 @@ public class ETGame extends BasicGame {
 	@Override
 	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
 		// TODO Auto-generated method stub
-		background.render();
-		for (Block block : blocks) {
-			block.render();
+		if (isStart) {
+				mainMenu.render();
+		} else {
+			background.render();
+			for (Block block : blocks) {
+				block.render();
+			}
+			arg1.drawString("" + CountBlock, 200, 0);
+			equipment.render();
+			player.render();
+			ChkWinOrGameover();
 		}
-		arg1.drawString("" + CountBlock, 200, 0);
-		equipment.render();
-		player.render();
-		ChkWinOrGameover();
-
+		
 	}
 
 	public void ChkWinOrGameover() {
@@ -63,6 +71,7 @@ public class ETGame extends BasicGame {
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
+		mainMenu = new MainMenu(isStart);
 		CreateMap();
 		equipment = new Equipment();
 		player = new PlayerController(MapWidth - setMapX - NextBlock, MapHeight);
@@ -93,6 +102,7 @@ public class ETGame extends BasicGame {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		Input input = container.getInput();
+		ChkIsStart(container, input);
 		if (!isGameOver && !Winner) {
 			try {
 				updatePlayerMovement(input, delta);
@@ -104,12 +114,13 @@ public class ETGame extends BasicGame {
 				if (!block.isPass(player)) {
 				}
 			}
-		} else if ( Winner) {
-			
+		} else if (Winner) {
+
 			// press any key to continue
-			if (input.isKeyDown(Input.KEY_ENTER))
-			{
-				stage++;
+			if (input.isKeyDown(Input.KEY_ENTER)) {
+				if (stage < 5) {
+					stage++;
+				}
 				SetGameInit(container);
 			}
 		}
@@ -119,18 +130,26 @@ public class ETGame extends BasicGame {
 
 	}
 
+	public void ChkIsStart(GameContainer container, Input input)
+			throws SlickException {
+		if (isStart) {
+			if (input.isKeyDown(Input.KEY_ENTER)) {
+				SetGameInit(container);
+				isStart = false;
+			}
+		}
+	}
+
 	public void SetGameInit(GameContainer container) throws SlickException {
 		init(container);
 		CountBlock = 0;
 		Winner = false;
 	}
 
-	public void PlayAgain_WhenGameOver(GameContainer container, Input input) 
+	public void PlayAgain_WhenGameOver(GameContainer container, Input input)
 			throws SlickException {
-		if (isGameOver)
-		{
-			if (input.isKeyDown(Input.KEY_ENTER))
-			{
+		if (isGameOver) {
+			if (input.isKeyDown(Input.KEY_ENTER)) {
 				SetGameInit(container);
 				isGameOver = false;
 			}
