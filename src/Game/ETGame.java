@@ -13,7 +13,7 @@ public class ETGame extends BasicGame {
 
 	private PlayerController player;
 	private Block[] blocks;
-	private Background background;
+	private static Background background;
 	private PlayAgainButton play_again;
 	private Equipment equipment;
 	
@@ -98,6 +98,12 @@ public class ETGame extends BasicGame {
 	@Override
 	public void init(GameContainer arg0) throws SlickException {
 		// TODO Auto-generated method stub
+		initWhenGameStart();
+		background.play();
+
+	}
+
+	public void initWhenGameStart() throws SlickException {
 		mainMenu = new MainMenu(isStart);
 		CreateMap();
 		equipment = new Equipment();
@@ -171,7 +177,7 @@ public class ETGame extends BasicGame {
 	}
 	
 	public void SetGameInit(GameContainer container) throws SlickException {
-		init(container);
+		initWhenGameStart();
 		CountBlock = 0;
 		Winner = false;
 	}
