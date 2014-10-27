@@ -31,6 +31,7 @@ public class ETGame extends BasicGame {
 	public static int setMapY = 150;
 	public static int CountBlock = 0;
 	public static int stage = 1;
+	public static int NumofStar;
 
 
 	// Set Win Game or Game over

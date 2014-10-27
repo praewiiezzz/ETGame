@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 public class Score {
 	public static int X = 0;
 	public static int Y = 0;
+
 	private Image Score;
 	private int getStar = 0;
 	private long TimeFinishAllStage = 0; 
@@ -46,9 +47,13 @@ public class Score {
 		{
 			GetStar = 1;
 		}
-		System.out.println("GetStar"+GetStar);
+		if (ETGame.NumofStar<GetStar)
+		{
+			ETGame.NumofStar = GetStar;
+		}
+		System.out.println("temp"+ETGame.NumofStar);
 		System.out.println(TimeUse);
-		return GetStar;
+		return ETGame.NumofStar;
 		
 			
 	}
