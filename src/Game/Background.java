@@ -10,7 +10,7 @@ public class Background {
 	private Music music;
 	
 	public Background() throws SlickException {
-		music = new Music("res/attraction.wav");
+		music = new Music("res/attraction2.wav");
 		music.setVolume(0.1f);
 	}
 	public void render() throws SlickException {

@@ -47,7 +47,7 @@ public class PlayerController {
 		Old_y = y;
 		x -= ETGame.NextBlock;
 		System.out.println("x " + x + " y" + y);
-		Thread.sleep(200);// To prevent pass more 1 block
+		Thread.sleep(180);// To prevent pass more 1 block
 	}
 
 	public void moveRight() throws InterruptedException {
@@ -56,7 +56,7 @@ public class PlayerController {
 		Old_y = y;
 		x += ETGame.NextBlock;
 		System.out.println("x " + x + " y" + y);
-		Thread.sleep(200);
+		Thread.sleep(180);
 	}
 
 	public void moveUP() throws InterruptedException {
@@ -65,7 +65,7 @@ public class PlayerController {
 		Old_y = y;
 		y -= ETGame.NextBlock;
 		System.out.println("x " + x + " y" + y);
-		Thread.sleep(200);
+		Thread.sleep(180);
 	}
 
 	public void moveDown() throws InterruptedException {
@@ -74,7 +74,7 @@ public class PlayerController {
 		Old_y = y;
 		y += ETGame.NextBlock;
 		System.out.println("x " + x + " y" + y);
-		Thread.sleep(200);
+		Thread.sleep(180);
 	}
 
 	public void Border() {
